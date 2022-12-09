@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+	
+		<script src="three.js"></script>
+		<script src="./js/objects/Reflector.js"></script>
+		<script src="./js/objects/Refractor.js"></script>
+		<script src="./js/objects/Water2.js"></script>
+		<script src="./js/Detector.js"></script>
+		
+		<script src="./js/OBJLoader2.js"></script>
+		
+		<script src="./js/OrbitControls.js"></script>
+		<script src="./js/OrbitControls.js"></script>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js"></script>
+		
+<script>
+
+const loader = new THREE.GLTFLoader();
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0xffffff, 1);
+//document.getElementById("berg").appendChild(renderer.domElement);
+
+camera.position.y = 10;
+camera.position.z = 60;
+
+function loadBerg1() {
+
+const loader = new GLTFLoader();
+
+loader.load( 'js/Berg1.gltf', function ( gltf ) {
+    glb.scene.scale.set(0.1, 0.1, 0.1);
+    glb.scene.rotateX(101);
+    glb.scene.rotateY(0.2);
+    scene.add(glb.scene);
+  },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  function (error) {
+    console.log("An error happened");
+  }
+);
+
+//const lightA = new THREE.AmbientLight(0x404040); // soft white light
+//scene.add(lightA);
+
+const lightP = new THREE.PointLight(0x557bc9, 1);
+lightP.position.set(-10, 30, 500);
+scene.add(lightP);
+
+var mouseTolerance = 0.3;
+
+
+window.onscroll = (e) => {
+    scene.rotation.x = - this.scrollY / 1200.0;
+  };
+
+
+const animate = function () {
+  requestAnimationFrame(animate);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.render(scene, camera);
+};
+
+animate();
+
+
+</script>
+</body>
+</html>
